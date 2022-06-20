@@ -1,0 +1,11 @@
+bit wise 
+
+set |= 1
+
+clear &= ~1
+
+
+cách sử dụng malloc, calloc, realloc 
+
+memset
+
