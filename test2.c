@@ -1,35 +1,35 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct _node {
+struct linkedList{
 	int value;
-	struct _node *next;
+	struct linkedList *next;
 };
 
-typedef struct _node Node;
-
-// Create node
-Node *create(int x) {
-	Node* temp = (Node*)malloc(sizeof(Node));
-	temp -> next = NULL; 
-	temp -> value = x; 
-	return temp; 
+typedef struct linkedList *node;
+node createNode(int value) {
+	node temp; 
+	temp = (node)malloc(sizeof(struct linkedList));
+	temp -> next = NULL;
+	temp -> data = value;
+	return temp;
 }
 
-// Delete node 
-void deleteNode(struct _node* node) {
-	Node* temp = node -> next;
-	node -> value = temp -> value;
-	node -> next = temp -> next;
-	free(temp);
+node insertTail(node head, int value) {
+	node temp = createNode(value);
+	node p;
+	if(head == NULL) {
+		head = temp; 
+	}
+	else {
+		p = head;
+		while(p -> next != NULL) {
+			p = p -> next;
+		}
+		p -> next = temp;
+	}
+	return head;
 }
 
-// Insert node 
-void insert(struct _node* list, int value) {
-	
-}
 
-// Remove node
-void remove(struct _node * list, int value) {
-	
-}
+

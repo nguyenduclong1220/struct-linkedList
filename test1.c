@@ -24,11 +24,12 @@ union _register {
 };
 
 void setVaue(union _register *reg, unsigned char bit, unsigned char value) {
-
+	reg -> value = value ? reg -> value | (1<<bit) : reg -> value & ~(1<<bit);
 }
 int main () {
     union _register REG_A;
 
     setVaue(&REG_A, BIT1, 0);
+    printf("%d\n", REG_A.value);
     return 0;
 }
