@@ -1,17 +1,44 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct _node {
-	int value;
-	struct _node *next;
+struct Node {
+	int data;
+	struct Node* next;
 };
 
-typedef struct _node Node;
-Node *create(int x) {
-	Node* temp = (Node*)malloc(sizeof(Node));
-	temp -> next = NULL; 
-	temp -> value = x; 
-	return temp; 
+void push(struct Node** head_ref, int new_data) {
+	struct Node* new_node = (struct Node*)malloc(sizeof(struct Node));
+	new_node -> data = new_data;
+	new_node -> next = (*head_ref);
+	(*head_ref) = new_node;
 }
 
+int detectLoop(struct Node* list) {
+	struct Node *slow_p = list, *fast_p = list;
+	while (slow_p && fast_p && fast_p -> next) {
+		slow_p = slow_p -> next;
+		fast_p = fast_p -> next -> next;
+		if (slow_p == fast_p) {
+			return 1;
+		}
+	}
+	return 0;
+}
 
+int main () {
+	struct Node* head = NULL;
+	push(&head, 20);
+	push(&head, 30);
+	push(&head, 40);
+	push(&head, 50);
+	
+	head -> next -> next -> next -> next = head;
+	
+	if (detectLoop(head)) {
+		printf("Detect loop!!!");
+	}
+	else {
+		printf("No loop!");
+	}
+	return 0;
+}
